@@ -11,43 +11,48 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 serverSocket.bind(('', serverPort))
 
-
 #become a server socket
-serverSocket.listen(5)
+serverSocket.listen(3)
 
 print "Server ready..."
-
 
 #connection socket list
 connectSocket_list = []
 
-def broadcast(msg, clientSocket):
-	for c in connectSocket_list:
-		if msg == "QUIT":
-			msg = "Client ", connectSocket_list.index(clientSocket), " has disconnected"
-		c.send(msg)
 
-def recv_msg(clientSocket):
-	while True:
-		msg = connectionSocket.recv(BUFFERSIZE)	
-		msg = "Client " + str(connectSocket_list.index(clientSocket)) + ": " + msg
-		print msg
-		broadcast(msg, clientSocket)
-		
-		#end thread, close connection
-		if msg == "QUIT":
-			clientSocket.close()
-			break
+def broadcast(msg):
+	try:
+		for c in connectSocket_list:
+			c.send(msg)
+	except:
+		pass
 
+
+def recv_msg(connectionSocket):
+	try:
+		while True:
+			msg = connectionSocket.recv(BUFFERSIZE)	
+			if "QUIT" != msg:
+				msg = "Client " + str(connectSocket_list.index(connectionSocket)) + ": " + msg
+			else:
+				msg = "Client " + str(connectSocket_list.index(connectionSocket)) + " has disconnected."
+				connectSocket_list.remove(connectionSocket)
+			print msg
+			broadcast(msg)
+			
+			#end thread, close connection
+			if msg == "QUIT":
+				connectionSocket.close()
+				sys.exit()
+	except:
+		pass
 
 while True:
 	connectionSocket, addr = serverSocket.accept()
-	connectionSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 	connectSocket_list.append(connectionSocket)
+	print "Connection received from: ", addr
 	
 	ct = threading.Thread(target=recv_msg, args=(connectionSocket, ))
 	ct.start()
 	
-
-connectionSocket.close()
-
+serverSocket.close()
