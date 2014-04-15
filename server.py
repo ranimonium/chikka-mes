@@ -3,10 +3,11 @@
 from socket import *
 import threading
 import traceback
-
+import sys
+import os
 
 BUFFERSIZE = 2048
-serverPort = 1234
+serverPort = 60007
 
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
@@ -29,33 +30,60 @@ def broadcast(msg):
 		pass
 
 def respond(msg, connectionSocket):
-	msg = msg.split('\n')
-	method = msg[0].split(' ')[0]
-	httpversion = msg[0].split(' ')[2]
 	
+	msg = msg.split('\n')
+	
+	firstLine = msg[0].split(' ')
+	
+	method = firstLine[0]
+	requestfile = firstLine[1][1:]
+	httpversion = firstLine[2]
+	
+	# print method, requestfile, httpversion
+
 	response = ""
 
 	if method == "GET":
-		response = "HTTP/1.1 200 OK\r\n"
-		response += "Connection: close\r\n\r\n"
-		print response
+		print requestfile
+		if os.path.isfile(requestfile):
+			response = "HTTP/1.1 200 OK\r\n\r\n"
+			connectionSocket.send(response)
+			with open(requestfile, "r") as f:
+				for line in f:
+					# print line
+					connectionSocket.send(line)
+		else:
+			response = "HTTP/1.1 404 Not Found\r\n\r\n"
+
 	elif method == "POST":
-		pass
-	elif method == "PUT":
-		pass
-	connectionSocket.send(response)
+		response = "HTTP/1.1 200 OK\r\n\r\n"
+	elif method == "OPTIONS":
+		response = "HTTP/1.1 200 OK\r\n\r\n"
+	
+	print response
+	
+	connectionSocket.close()
+	print "CLOSED connection received from: ", addr
+	raise KeyboardInterrupt
 	
 def recv_msg(connectionSocket):
 	try:
 		while True:
 			msg = connectionSocket.recv(BUFFERSIZE)
-			print "MSG: " + msg
+			# msg = "Client " + str(connectSocket_list.index(connectionSocket)) + ": " + msg
+			# print msg
 			respond(msg, connectionSocket)
-			
+			# broadcast(msg)
+
 			#end thread, close connection
-			if msg == "QUIT":
+			if "QUIT" in msg:
 				connectionSocket.close()
-				sys.exit()
+				print "Client " + str(connectSocket_list.index(connectionSocket)) + " has disconnected!"
+				connectSocket_list.remove(connectionSocket)
+				raise KeyboardInterrupt
+	
+	except KeyboardInterrupt:
+		sys.exit(1)
 	except Exception as e:
 		traceback.print_exc()
 		print e
@@ -63,8 +91,9 @@ def recv_msg(connectionSocket):
 
 while True:
 	connectionSocket, addr = serverSocket.accept()
-	connectSocket_list.append(connectionSocket)
 	print "Connection received from: ", addr
+
+	connectSocket_list.append(connectionSocket)
 	
 	ct = threading.Thread(target=recv_msg, args=(connectionSocket, ))
 	ct.start()
