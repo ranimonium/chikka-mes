@@ -26,6 +26,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     lb1.vm.network "private_network", ip: "192.168.1.101"
   end
 
+  config.vm.define "centos" do |centos|
+    centos.vm.hostname = "centos.localhost"
+    centos.vm.network "private_network", ip: "192.168.1.123"
+  end
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.

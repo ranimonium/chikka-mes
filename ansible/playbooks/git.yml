@@ -1,0 +1,7 @@
+---
+
+- hosts: webserver
+  tasks:
+   - name: Install git
+     apt: name=git state=present
+     sudo: True
