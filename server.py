@@ -86,7 +86,9 @@ def respond(msg, connectionSocket):
 		connectionSocket.send(response)
 
 	elif method == "OPTIONS":
-		response = "HTTP/1.1 200 OK\r\n\r\n"
+		response = "HTTP/1.1 200 OK\r\n"
+		response += "Allow: POST,OPTIONS,GET,HEAD\r\n\r\n"
+		connectionSocket.send(response)
 	
 	connectionSocket.close()
 	print "CLOSED: connection received from ", addr
