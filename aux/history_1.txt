@@ -1,0 +1,341 @@
+    1  ifconfig
+    2  ping google.com
+    3  cat /proc/cpuinfo 
+    4  ls
+    5  ls Desktop/
+    6  ls /home
+    7  free -m
+    8  df -h
+    9  exit
+   10  uname -a
+   11  exit
+   12  curl
+   13  exit
+   14  ifconfig
+   15  exit
+   16  ls
+   17  exit
+   18  sudo apt-get update
+   19  sudo update-manager 
+   20  ssh chikka@10.11.3.26
+   21  curl localhost
+   22  ssh chikka@localhost
+   23  ls
+   24  ls -a
+   25  telnet localhost 22
+   26  telnet localhost
+   27  telnet
+   28  curl
+   29  sudo apt-get install aptitude
+   30  sudo aptitude install git curl -y
+   31  curl
+   32  sudo aptitude install openssh-server openssh-client -y
+   33  sudo aptitude install virtualbox
+   34  history
+   35  sublime-text
+   36  sudo apt-get install sublime-text
+   37  sudo apt=get repository ppa:webupd8team/sublime-text-2
+   38  sudo add-apt-repository ppa:webupd8team/sublime-text-2
+   39  sudo apt-get update
+   40  sudo apt-get install sublime-text
+   41  man curl
+   42  man ssh
+   43  cd dev
+   44  python server.py
+   45  ls
+   46  ls dev
+   47  ls
+   48  ls -a
+   49  vagrant
+   50  ls
+   51  exit
+   52  ls
+   53  ls ~/.vagrant.d/boxes/
+   54  exit
+   55  cd dev
+   56  python server.py
+   57  clear
+   58  python server.py
+   59  exit
+   60  quit
+   61  exit
+   62  sudo apt-get install nautilus
+   63  cd Home
+   64  cd /home/Home/dev
+   65  cd /
+   66  cd home/Home/dev
+   67  cd home
+   68  cd Home
+   69  cd chikka
+   70  cd dev
+   71  python client.py
+   72  python
+   73  python client.py
+   74  clear
+   75  history
+   76  clear
+   77  python client.py
+   78  telnet localhost 1234
+   79  vagrant box list
+   80  vagrant init
+   81  mkdir vagrant_getting_started
+   82  cd vagrant_getting_started
+   83  vagrant init
+   84  vagrant init hashicorp/precise32
+   85  vagrant rm
+   86  vagrant destroy
+   87  vagrant init hashicorp/precise32
+   88  vagrant up
+   89  cd ..
+   90  vagrant up
+   91  vagrant ssh
+   92  vagrant destroy
+   93  vagrant
+   94  vagrant box list
+   95  rm Vagrantfile
+   96  rm vagrant_getting_started
+   97  rm vagrant_getting_started/
+   98  del vagrant_getting_started
+   99  man rm 
+  100  rm vagrant_getting_started -r
+  101  rm .vagrant -r
+  102  vagrant init puppetlabs-centos-63
+  103  vagrant up
+  104  vagrant box list
+  105  vagrant status
+  106  vagrant ssh webserver
+  107  vagrant destroy
+  108  vagrant up
+  109  sudo apt-get pidgin
+  110  sudo apt-get install pidgin
+  111  telnet gmail.com 5223
+  112  telnet talk.gmail.com 5223
+  113  telnet talk.google.com 5223
+  114  vagrant ssh
+  115  vagrant destroy
+  116  vagrant up
+  117  ifconfig
+  118  python client.py
+  119  vagrant destroy
+  120  vagrant up
+  121  vagrant ssh
+  122  sublime-text ~/.ssh/known_hosts
+  123  cd dev
+  124  python server
+  125  python server.py
+  126  git
+  127  git init
+  128  git remote add origin https://github.com/ranimonium/chikka-mes
+  129  git add *.py
+  130  git status
+  131  git commit -m "simple tcp server-client program wherein server prints whatever client sends to server"
+  132  git push origin master
+  133  git pull origin master
+  134  git push origin master
+  135  python server.py
+  136  python server.py
+  137  python client.py
+  138  python client.py
+  139  cd dev
+  140  python server.py
+  141  python client.py
+  142  cd dev
+  143  python server.py
+  144  python server.py
+  145  python client.py
+  146  python client.py
+  147  git add *.py
+  148  git commit -m "broadcast"
+  149  git push origin master
+  150  ls
+  151  vagrant --version
+  152  cd dev
+  153  ls
+  154  cat README.md 
+  155  vim Vagrantfile 
+  156  sudo aptitude install vim
+  157  ls
+  158  vim Vagrantfile 
+  159  vagrant status
+  160  vagrant destroy
+  161  ping 192.168.1.101
+  162  ls
+  163  vagrant status
+  164  ls ~/.ssh/
+  165  ls -a ~/.ssh/
+  166  ls
+  167  vagrant up lb1
+  168  ls
+  169  vagrant destroy
+  170  ls
+  171  cd ~/.vagrant.d/
+  172  ls
+  173  cd boxes
+  174  ls
+  175  ll -a .
+  176  ll -ar
+  177  cd puppetlabs-centos-63/
+  178  ll .
+  179  cd 0
+  180  ls
+  181  cd virtualbox/
+  182  ls
+  183  cd ...
+  184  cd ../..
+  185  ls
+  186  cd ..
+  187  ls
+  188  vagrant box
+  189  vagrant box repackage puppetlabs-centos-63
+  190  vagrant box repackage puppetlabs-centos-63 centos-63
+  191  ls
+  192  vagrant box outdated
+  193  vagrant box remove puppetlabs-centos-63
+  194  ls
+  195  ls puppetlabs-centos-63/
+  196  ls puppetlabs-centos-63/ -r
+  197  ls puppetlabs-centos-63/ -R
+  198  ls
+  199  cd puppetlabs-centos-63/
+  200  ls
+  201  cd 0
+  202  ls
+  203  cd ../..
+  204  l
+  205  sls
+  206  rmdir  puppetlabs-centos-63/0/
+  207  rmdir puppetlabs-centos-63/
+  208  ls
+  209  vagrant box list
+  210  vagrant box
+  211  vagrant box add puppetlabs-centos-63/
+  212  ls puppetlabs-centos-63/ -R
+  213  vagrant --version
+  214  cd ~/dev/
+  215  ls
+  216  vagrant status
+  217  vim Vagrantfile 
+  218  vagrant status
+  219  vagrant up
+  220  telnet 192.168.1.101 2200
+  221  telnet 192.168.1.101 22
+  222  ping 192.168.1.101
+  223  vagrant status
+  224  exit
+  225  cd dev
+  226  python server.py
+  227  python client.py
+  228  python client.py
+  229  python client.py
+  230  python client.py
+  231  ls
+  232  cd dev
+  233  ls
+  234  vagrant status
+  235  cd ..
+  236  ls
+  237  exit
+  238  man socketopt
+  239  man setsocketopt
+  240  man setsockopt
+  241  cd dev
+  242  python server.py
+  243  python client.py
+  244  cd dev
+  245  python server.py
+  246  python server.py
+  247  ls
+  248  vagrant box list
+  249  ls
+  250  cd dev
+  251  vim Vagrantfile 
+  252  vagrant status
+  253  vagrant destroy -f
+  254  ls
+  255  vagrant box list
+  256  vim Vagrantfile 
+  257  vagrant status
+  258  vagrant up
+  259  vagrant box list
+  260  exit
+  261  python server.py
+  262  sudo apt-get install apache2
+  263  python server.py
+  264  python client.py
+  265  python server.py
+  266  [A
+  267  python client.py
+  268  python server.py
+  269  python client.py
+  270  cd dev
+  271  python server.py
+  272  curl localhost 1234 -v
+  273  curl localhost:1234 -v
+  274  python server.py
+  275  git add client.py server.py
+  276  git commit -m "broadcast working; with disconnection"
+  277  git push origin master
+  278  curl localhost:1234 -v
+  279  vagrant box list
+  280  curl google.com
+  281  curl google.com -v
+  282  curl localhost -v
+  283  python server.py
+  284  cd dev
+  285  python server.py
+  286  man curl
+  287  python
+  288  python server.py
+  289  curl localhost
+  290  curl localhost -v
+  291  curl localhost:1234 -v
+  292  curl localhost:1234
+  293  curl localhost:1234 -v
+  294  python server.py
+  295  telnet localhost:1234
+  296  telnet localhost 1234
+  297  python server.py
+  298  git add server.py
+  299  git commit -m "server can respond to curl; does not close connection though"
+  300  git config --global user.name "Jadurani Davalos"
+  301  git config --global user.email "jadurani.davalos@gmail.com"
+  302  git push origin master
+  303  python server.py
+  304  cd dev
+  305  python server.py
+  306  cd dev
+  307  vagrant ssh
+  308  python server.py
+  309  telnet localhost 80
+  310  python client.py
+  311  python
+  312  python server.py
+  313  python client.py
+  314  curl localhost:60007 -v
+  315  python 
+  316  curl localhost:60007 /dev/index.html -v
+  317  curl localhost 80
+  318  curl localhost
+  319  curl localhost -v
+  320  curl localhost/index.html -v
+  321  curl localhost:60007/dummyfile.html -v
+  322  curl localhost/index.html -v
+  323  curl localhost:60007/dummyfile.html -v
+  324  curl localhost/index.html -v
+  325  curl localhost:60007/dummyfile.html -v
+  326  git add .
+  327  git commit -m "server can now mimic apache's response to GET; also, added the vagrantshiz"
+  328  git push origin master
+  329  man stty
+  330  sudo apt-get install nautilus-open-terminal
+  331  nautilus -q
+  332  stty rows 10
+  333  ps
+  334  ps -ef | grep httpd
+  335  httpd
+  336  httpd -v
+  337  ls /etc/i*
+  338  history
+  339  history | grep apache
+  340  cd dev
+  341  history > commands.txt

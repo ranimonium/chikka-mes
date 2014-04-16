@@ -39,31 +39,57 @@ def respond(msg, connectionSocket):
 	requestfile = firstLine[1][1:]
 	httpversion = firstLine[2]
 	
-	# print method, requestfile, httpversion
+	print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+	print method, requestfile, httpversion
+	print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
 	response = ""
 
 	if method == "GET":
-		print requestfile
-		if os.path.isfile(requestfile):
+		
+		#not asking for anything
+		if not requestfile:
+			response = "HTTP/1.1 200 OK\r\n\r\n"
+			connectionSocket.send(response)
+		#asking for a file and it exists
+		elif os.path.isfile(requestfile):
 			response = "HTTP/1.1 200 OK\r\n\r\n"
 			connectionSocket.send(response)
 			with open(requestfile, "r") as f:
 				for line in f:
 					# print line
 					connectionSocket.send(line)
+		#file does not exist
 		else:
 			response = "HTTP/1.1 404 Not Found\r\n\r\n"
+			connectionSocket.send(response)
 
 	elif method == "POST":
-		response = "HTTP/1.1 200 OK\r\n\r\n"
+		#check for header "File: "
+		for m_i in range(len(msg)):
+
+			if "File:" in msg[m_i]:
+			
+				print "Creating file..."
+
+				makefile = msg[m_i][5:-1] #the -1 to remove carriage return
+				open(makefile, 'a').close()
+				
+				print "CREATED: ", makefile
+			
+				response = "HTTP/1.1 200 OK\r\n\r\n"
+				break
+			
+			else:
+				response = "HTTP/1.1 500 Internal Server Error\r\n\r\n"
+		
+		connectionSocket.send(response)
+
 	elif method == "OPTIONS":
 		response = "HTTP/1.1 200 OK\r\n\r\n"
 	
-	print response
-	
 	connectionSocket.close()
-	print "CLOSED connection received from: ", addr
+	print "CLOSED: connection received from ", addr
 	raise KeyboardInterrupt
 	
 def recv_msg(connectionSocket):
@@ -71,7 +97,7 @@ def recv_msg(connectionSocket):
 		while True:
 			msg = connectionSocket.recv(BUFFERSIZE)
 			# msg = "Client " + str(connectSocket_list.index(connectionSocket)) + ": " + msg
-			# print msg
+			print msg
 			respond(msg, connectionSocket)
 			# broadcast(msg)
 
