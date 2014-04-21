@@ -6,16 +6,45 @@
 <body>
 
 <form>
-<input type="text" id="data"><br>
-<input type="button" onclick="popup()" value="Go">
+<input type="text" id="item"><br>
+<input type="button" onclick="addItem()" value="Add"> <input type="button" onclick="removeItem()" value="Remove Last">
 </form>
 
+<h3>TO DO:</h3>
+<ul id="todo"></ul>
 
 <script type="text/javascript">
 
-function popup(){
-	var string = document.getElementById("data").value;
-	alert(string);
+items = new Array();
+
+function addItem(){
+	
+	var newItem = document.getElementById("item").value;
+	
+	if (newItem == "") {
+		alert("Enter something!");
+	}
+
+	else {
+		items.push(newItem);
+		document.getElementById("item").value = "";
+	}
+
+	updateItemsList();
+}
+
+function removeItem(){
+	items.pop();
+	updateItemsList();
+}
+
+function updateItemsList() {
+	var list = document.getElementById("todo");
+	var html = ""
+	for ( i in items ) {
+		html += "<li>" + items[i] + "</li>";
+	}
+	list.innerHTML = html;
 }
 
 </script>
