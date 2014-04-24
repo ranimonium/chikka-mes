@@ -1,54 +1,72 @@
 <html>
-<header>
-<title>To-do list</title>
-</header>
+<head>
 
-<body>
+	<title>To-do list</title>
 
-<form>
-<input type="text" id="item"><br>
-<input type="button" onclick="addItem()" value="Add"> <input type="button" onclick="removeItem()" value="Remove Last">
-</form>
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-<h3>TO DO:</h3>
-<ul id="todo"></ul>
+	<body>
 
-<script type="text/javascript">
+		<div class="container">
 
-items = new Array();
+			<div class="col-xs-6 col-md-3"></div>
+			<div class="col-xs-6 col-md-6">
+				<div class="page-header">
+					<h1> todotodotodotodo</h1>
+				</div>
+				<form class="col">
+					<div class="form-group">
+						<input type="text" class="form-control" id="item" placeholder="Enter a task to do" name="task">
+					</div>
+					<!-- <input type="submit" class="btn btn-default" value="Add">  -->
+					<input type="button" class="btn btn-default" onclick="addItem()" value="Add"> 
 
-function addItem(){
-	
-	var newItem = document.getElementById("item").value;
-	
-	if (newItem == "") {
-		alert("Enter something!");
-	}
+					<input type="button" class="btn btn-default" onclick="removeItem()" value="Remove Last">
+				</form>
 
-	else {
-		items.push(newItem);
-		document.getElementById("item").value = "";
-	}
+				<h3>TO DO:</h3>
+				<ul id="todo"></ul>
+			</div>
+			<div class="col-xs-6 col-md-3"></div>
 
-	updateItemsList();
-}
+		</div>
+		<script type="text/javascript">
 
-function removeItem(){
-	items.pop();
-	updateItemsList();
-}
+			items = new Array();
 
-function updateItemsList() {
-	var list = document.getElementById("todo");
-	var html = ""
-	for ( i in items ) {
-		html += "<li>" + items[i] + "</li>";
-	}
-	list.innerHTML = html;
-}
+			function addItem(){
+				var newItem = document.getElementById("item").value;
+				if (newItem == "") {
+					alert("Enter something!");
+				}
+				else {
+					items.push(newItem);
+					document.getElementById("item").value = "";
+				}
+				updateItemsList();
+			}
 
-</script>
+			function removeItem(){
+				items.pop();
+				updateItemsList();
+			}
 
-</body>
+			function updateItemsList() {
+				var list = document.getElementById("todo");
+				var html = ""
+				for ( i in items ) {
+					html += "<li>" + items[i] + "</li>";
+				}
+				list.innerHTML = html;
+			}
+		</script>
 
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+	</body>
 </html>
