@@ -1,63 +1,51 @@
 var http = require('http');
-var fs = require('fs'); //file system
+var fs = require('fs');
 var url = require('url');
+var qs = require('querystring');
 var redis = require('redis'),
-	redis_client = redis.createClient();
+ redis_client = redis.createClient();
 
+//check for redis errors
 redis_client.on("error", function (err) {
     console.log("Error " + err);
 });
 
-var newtodo = {'content' : '' };
-
-updateToDoList(todoHTMLFile);
-
 var server = http.createServer(function(req, res){
 
-	// console.log(req);
+	if(req.method == "POST") {
+		var reqBody = '';
 
-	var todoHTMLFile = fs.readFileSync('./todo.html', 'utf8');
-	
-	if(req.method == "GET"){
-
-		res.writeHead(200, {"Content-Type": "text/html"});
-		var url_parts = url.parse(req.url, true);
-		var query = url_parts.query;
-
-		//push data to redis list "todolist"
-		if(query.task != undefined && query.task.length > 0) {
-			redis_client.rpush('todolist', query.task);
-
-		}
-		if(newtodo == ''){
-			// console.log('\n\n\n\n todoHTMLFile \n\n\n\n' + todoHTMLFile);
-			// res.end(todoHTMLFile);
-		}
+		req.on('data', function(data){
+			reqBody += data;
+			var formData = qs.parse(reqBody);
+			
+			if(formData.task != undefined && formData.task.length > 0){
+				redis_client.rpush('todolist', formData.task);
+			}
+			if(formData.removeLast != undefined && formData.removeLast){
+				redis_client.rpop('todolist');
+			}
+			updateToDoList(res);
+		});
+	} else {
+			updateToDoList(res);
 	}
 
-	updateToDoList(todoHTMLFile);
-
-	res.write(newtodo.content);
-
-	console.log('\n\n\n\n newtodo \n\n\n\n' + newtodo);
-	res.end();
 }).listen(8888);
 
-function updateToDoList(todoHTMLFile){
-	redis_client.lrange('todolist', 0, -1, function(err, result){
+console.log('Server ready.');
 
-		var todolistendindex = todoHTMLFile.search('<ul id="todolist">') + '<ul id="todolist">'.length;
-
-		var todolist_result = "";
+function updateToDoList(res){
+	var todoHTMLFile = fs.readFileSync('./todo.html', 'utf8');
+	var todolist_result = '';
+	redis_client.lrange('todolist', 0, -1, function(err, result) {
 		for ( todoitem in result ) {
 			todolist_result += "<li>" + result[todoitem] + "</li>";
 		}
 
-		newtodo.content = (todoHTMLFile.substring(0, todolistendindex) + todolist_result + todoHTMLFile.substring(todolistendindex));
-
+		var todolistendindex = todoHTMLFile.search('<ul id="todolist">') + '<ul id="todolist">'.length;
+		todoHTMLFile = (todoHTMLFile.substring(0, todolistendindex) + todolist_result + todoHTMLFile.substring(todolistendindex));
+		res.writeHead(200, {"Content-Type": "text/html"});
+		res.end(todoHTMLFile);
 	});
-
 }
-
-
-console.log('Server ready.');
