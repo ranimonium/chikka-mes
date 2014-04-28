@@ -19,12 +19,10 @@
 				</div>
 				<form class="col" action="." method="POST">
 					<div class="form-group">
-						<input type="text" class="form-control" id="item" placeholder="Enter a task to do" name="task">
+						<input type="text" class="form-control" id="task" placeholder="Enter a task to do" name="task">
 					</div>
-					<input type="submit" class="btn btn-default" value="Add"> 
-					<!-- <input type="button" class="btn btn-default" onclick="addItem()" value="Add">  -->
-
-					<input type="button" class="btn btn-default" onclick="removeItem()" value="Remove Last">
+					<input type="button" class="btn btn-default" onclick="editToDo('add')" value="Add"> 
+					<input type="button" class="btn btn-default" onclick="editToDo('remove')" value="Remove Last">
 				</form>
 
 				<h3>TO DO:</h3>
@@ -35,33 +33,31 @@
 		</div>
 		<script type="text/javascript">
 
-			items = new Array();
+			setInterval(function(){editToDo('refresh')}, 1000);
+			
+			function editToDo(action){
+				newtask = document.getElementById('task').value;
+				xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+						document.getElementById("todolist").innerHTML=xmlhttp.responseText;
 
-			function addItem(){
-				var newItem = document.getElementById("item").value;
-				if (newItem == "") {
-					alert("Enter something!");
+					}
 				}
-				else {
-					items.push(newItem);
-					document.getElementById("item").value = "";
+				if(action=='add'){
+					document.getElementById('task').value = "";
+					xmlhttp.open("GET","add?task="+newtask, true);
+				} else if(action=='remove'){
+					xmlhttp.open("GET","remove", true);
+				} else {
+					xmlhttp.open("GET","refresh", true);
 				}
-				updateItemsList();
+				xmlhttp.send();
+
 			}
 
-			function removeItem(){
-				items.pop();
-				updateItemsList();
-			}
 
-			function updateItemsList() {
-				var list = document.getElementById("todolist");
-				var html = ""
-				for ( i in items ) {
-					html += "<li>" + items[i] + "</li>";
-				}
-				list.innerHTML = html;
-			}
+
 		</script>
 
 
